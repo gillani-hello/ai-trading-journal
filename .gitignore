@@ -1,0 +1,11 @@
+*.pyc
+.DS_Store
+.claude/
+.env
+.pytest_cache/
+.venv/
+__pycache__/
+data/
+demo-data/
+web/dist/
+web/node_modules/

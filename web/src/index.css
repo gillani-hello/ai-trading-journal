@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+/* Dark chart chrome from the dataviz reference palette; P&L green/red validated
+   on the surface below (CVD-safe only with sign/position as secondary encoding). */
+@theme {
+  --color-page: #0d0d0d;
+  --color-surface: #1a1a19;
+  --color-surface-2: #232321;
+  --color-surface-3: #2c2c2a;
+  --color-ink: #f0efec;
+  --color-ink-2: #c3c2b7;
+  --color-muted: #898781;
+  --color-grid: #2c2c2a;
+  --color-baseline: #383835;
+  --color-border: rgb(255 255 255 / 0.1);
+  --color-accent: #3987e5;
+  --color-accent-strong: #2a78d6;
+  --color-pos: #0ca30c;
+  --color-neg: #e66767;
+  --color-warn: #fab219;
+  --color-serious: #ec835a;
+  --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-slide-in: slide-in 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes slide-in {
+    from {
+      transform: translateX(24px);
+      opacity: 0;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background:
+    radial-gradient(1200px 520px at 15% -10%, rgb(57 135 229 / 0.09), transparent 60%),
+    radial-gradient(900px 480px at 100% 0%, rgb(12 163 12 / 0.04), transparent 60%),
+    var(--color-page);
+  background-attachment: fixed;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Recharts focus outline */
+.recharts-wrapper *:focus {
+  outline: none;
+}
