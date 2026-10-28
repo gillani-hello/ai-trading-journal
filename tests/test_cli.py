@@ -38,3 +38,13 @@ def test_non_portable_mt5_layout_is_discovered(tmp_path, monkeypatch):
     )
     monkeypatch.setattr(config, "get_settings", lambda: type("S", (), {"mt5_dir": None})())
     assert config.discover_mt5_dir() == common / "TradeJournal"
+
+
+def test_timezone_falls_back_to_utc_without_system_zone(monkeypatch):
+    from tj.services import settings
+
+    def boom():
+        raise RuntimeError("no /etc/localtime")
+
+    monkeypatch.setattr(settings.tzlocal, "get_localzone_name", boom)
+    assert settings._local_timezone() == "UTC"

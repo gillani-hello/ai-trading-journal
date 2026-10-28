@@ -7,6 +7,15 @@ from sqlalchemy.orm import Session
 
 from tj.models import Setting
 
+
+def _local_timezone() -> str:
+    """The machine's timezone; minimal containers have none configured, so fall back to UTC."""
+    try:
+        return tzlocal.get_localzone_name() or "UTC"
+    except Exception:
+        return "UTC"
+
+
 # Sessions are classified by the trade's open hour in UTC; ranges wrap past midnight.
 DEFAULT_SESSIONS = [
     {"name": "Asia", "start": 21, "end": 7},
@@ -16,7 +25,7 @@ DEFAULT_SESSIONS = [
 ]
 
 DEFAULTS: dict[str, Any] = {
-    "display_timezone": tzlocal.get_localzone_name(),
+    "display_timezone": _local_timezone(),
     "sessions": DEFAULT_SESSIONS,
     # Minutes after a losing close within which a new trade counts as a revenge trade.
     "revenge_minutes": 30,

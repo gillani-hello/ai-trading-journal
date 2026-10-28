@@ -1,0 +1,9 @@
+.venv
+data
+demo-data
+web
+docs
+tests
+mt5
+.git
+.claude
